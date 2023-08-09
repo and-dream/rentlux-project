@@ -14,7 +14,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-#[Route('admin')]
+#[Route('/admin')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_admin')]
@@ -24,17 +24,19 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('voiture/modifier/{id}', name:"voiture_modifier")]
-    #[Route('voiture/ajouter', name: "voiture_ajouter")]
-    public function form(Request $globals, EntityManagerInterface $manager, Vehicule $voitures =null, SluggerInterface $slugger) :Response
+    #[Route('/voiture/modifier/{id}', name:"voiture_modifier")]
+    #[Route('/voiture/ajouter', name: "voiture_ajouter")]
+    public function form(Request $globals, EntityManagerInterface $manager, Vehicule $voiture =null, VehiculeRepository $repo, SluggerInterface $slugger) :Response
     {    
-        if($voitures == null)
+        if($voiture == null)
         {
-            $voitures = new Vehicule;
+            $voiture = new Vehicule;
         }
 
-        $editMode = $voitures->getId() !== null;
-        $form = $this->createForm(GestionVehiculesType::class, $voitures);
+        
+        $editMode = $voiture->getId() !== null;
+        $voitures = $repo->findAll();
+        $form = $this->createForm(GestionVehiculesType::class, $voiture);
     
         $form->handleRequest($globals);
 
@@ -55,10 +57,10 @@ class AdminController extends AbstractController
                     }catch (FileException $e){
 
                     }
-                    // $voitures->setImage($newFilename);
+                    $voiture->setPhoto($newFilename);
             } //!fin traitement image
             
-            $manager->persist($voitures);
+            $manager->persist($voiture); 
             $manager->flush();
 
             if($editMode)
@@ -68,23 +70,16 @@ class AdminController extends AbstractController
                
                 $this->addFlash('success', "Vous avez bien ajouté une nouvelle voiture");              
             }
-            return $this->redirectToRoute('vehicule_gestion');
+            return $this->redirectToRoute('voiture_ajouter');
         } 
 
         return $this->render('admin/gestion.html.twig', [
             'formGestion' => $form,
             'editMode' => $editMode,
+            'voitures' => $voitures,
         ]);
     }
 
-#[Route('/gestion', name: 'vehicule_gestion')]
-public function gestion(VehiculeRepository $repo)
-{
-    $voitures = $repo->findAll();
-    return $this->render('admin/gestion.html.twig', [
-        'voiture' =>$voitures,
-    ]);
-}
 
 #[Route('/voiture/supprimer/{id}', name: 'voiture_supprimer')]
 public function delete(EntityManagerInterface $manager, Vehicule $voitures)

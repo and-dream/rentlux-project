@@ -1,0 +1,13 @@
+1-Création du projet (symfony new nom_projet/ cd nom_projet/ composer require webapp )
+2-mise en place de l'environement( .env changement pour la création de la BDD)
+3-Créer votre premier controller et la page d'accueil avec la navbar (mettre place bootstrap si besoin et le bootstrap pour les formulaires "twig.yaml")
+4-créer votre BDD et créer les différentes Entity(s'il y a un user faire make:user avec make:entity pour cette entité) et les migrer
+5-créer le ou les controller admin. Le formulaire d'ajout des véhicules
+6-Finir le crud véhicule(AdminController), et afficher des véhicules sur mon site accèssible a tout le monde et les voitures individuellement(ApllicationController)
+7-faire l'inscription, la connexion et la déconnexion de l'utilisateur
+8-sécuriser les routes(avec les roles), créer son compte admin (local)
+9-faire la commande, faire en sorte q'un utilisateur puisse commander (créer le formulaire de commande, faire le traitement de la commande)
+10-faire le crud de la commande (AdminController)
+11-faire le crud membre (AdminController)
+12-créer la page mon compte pour voir les commandes du membre connecté
+13-mise en ligne, création d'un compte admin, modification du role avec scalingo (connexion a la BDD en ligne), ajout de voiture etc...
