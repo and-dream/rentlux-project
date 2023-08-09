@@ -10,14 +10,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VoitureController extends AbstractController
 {
-    #[Route('/voiture/all', name: 'voiture_all')]
-    public function showAll(VehiculeRepository $repo): Response
+    
+    #[Route('/', name: 'home')]
+    public function index()
     {
-        $voitures = $repo->findAll();
-        return $this->render('voiture/index.html.twig', [
-            "voitures" => $voitures
-        ]);
+        return $this->render('voiture/index.html.twig');
     }
+    
+    // #[Route('/voiture/all', name: 'voiture_all')]
+    // public function showAll(VehiculeRepository $repo): Response
+    // {
+    //     $voitures = $repo->findAll();
+    //     return $this->render('voiture/index.html.twig', [
+    //         "voitures" => $voitures
+    //     ]);
+    // }
 
    
 }

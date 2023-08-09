@@ -51,6 +51,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Commande::class)]
     private Collection $commandes;
 
+    #[ORM\Column]
+    private array $Roles = [];
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
