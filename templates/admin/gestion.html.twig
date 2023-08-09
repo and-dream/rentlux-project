@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion des véhicules{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <table class="table table-light table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Marque</th>
+                    <th>Modele</th>
+                    <th>Description</th>
+                    <th>Photo</th>
+                    <th>Prix journalier</th>
+                    <th>Date Enregistrement</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for voiture in voitures %}
+
+                <tr>
+                    <td>{{ vehicule.titre }}</td>
+                    <td>{{ vehicule.marque }}</td>
+                    <td>{{ vehicule.modele }}</td>
+                    <td>{{ vehicule.description }}</td>
+                    <td>{{ vehicule.photo }}</td>
+                    <td>{{ vehicule.prixJournalier }}</td>
+                    <td>{{ vehicule.dateEnregistrement|date('d/m/Y à H:i:s') }}</td>
+                </tr>
+                    
+                {% endfor %}
+            </tbody>      
+        </table>  
+    </div>
+
+<div class="container">
+    {{ form_start(formGestion, {
+        attr: {novalidate: "novalidate"}
+    }) }}
+
+    {{ form_row(formGestion.titre, {
+        label: "Titre",
+    }) }}
+
+    {{ form_row(formGestion.marque, {
+        label: "Marque",
+    }) }}
+
+    {{ form_row(formGestion.modele, {
+        label: "Modèle",
+    }) }}
+
+    {{ form_row(formGestion.description, {
+        label: "Description",
+    }) }}
+
+    {{ form_row(formGestion.photo, {
+        label: "Image",
+    }) }}
+
+    {{ form_row(formGestion.prixJournalier,
+    
+    ) }}
+
+    {{ form_row(formGestion.dateEnregistrement) }}
+
+
+    {{ form_end(formGestion) }}
+
+
+</div>
+
+{% endblock %}
