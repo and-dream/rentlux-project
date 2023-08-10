@@ -10,8 +10,9 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -26,8 +27,8 @@ class RegistrationFormType extends AbstractType
             ->add('prenom')
             ->add('civilite', ChoiceType::class, [
                 'choices' => [
-                    'M.' => true,
-                    'Mme' => false,
+                    'Homme' => true,
+                    'Femme' => false,
                 ],
             ])
             // ->add('role')
@@ -67,6 +68,7 @@ class RegistrationFormType extends AbstractType
                     ))
                 ],
             ])
+            ->add('valider', SubmitType::class)
         ;
     }
 
