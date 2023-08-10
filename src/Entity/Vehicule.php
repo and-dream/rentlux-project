@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
@@ -16,21 +17,26 @@ class Vehicule
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: "ce champ ne peut être vide")]  
     #[ORM\Column(length: 200)]
     private ?string $titre = null;
 
+    #[Assert\NotBlank(message: "ce champ ne peut être vide")]
     #[ORM\Column(length: 50)]
     private ?string $marque = null;
 
+    #[Assert\NotBlank(message: "ce champ ne peut être vide")]
     #[ORM\Column(length: 50)]
     private ?string $modele = null;
 
+    #[Assert\NotBlank(message: "ce champ ne peut être vide")]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
     private ?string $photo = null;
 
+    #[Assert\NotBlank(message: "ce champ ne peut être vide")]
     #[ORM\Column]
     private ?int $prix_journalier = null;
 
@@ -103,7 +109,7 @@ class Vehicule
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): static
+    public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
 

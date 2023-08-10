@@ -7,7 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class GestionVehiculesType extends AbstractType
 {
@@ -36,7 +38,10 @@ class GestionVehiculesType extends AbstractType
                     ],
             ])
             ->add('prix_journalier')
-            ->add('date_enregistrement')
+            ->add('date_enregistrement', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('valider', SubmitType::class)
         ;
     }
 

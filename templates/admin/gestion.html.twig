@@ -7,6 +7,7 @@
         <table class="table table-light table-striped">
             <thead>
                 <tr>
+                    <th>Vehicule</th>
                     <th>Titre</th>
                     <th>Marque</th>
                     <th>Modele</th>
@@ -18,16 +19,17 @@
             </thead>
 
             <tbody>
-                {% for voiture in voitures %}
+                {% for vehicule in voitures %}
 
                 <tr>
+                    <td>{{ vehicule.id }}</td>
                     <td>{{ vehicule.titre }}</td>
                     <td>{{ vehicule.marque }}</td>
                     <td>{{ vehicule.modele }}</td>
                     <td>{{ vehicule.description }}</td>
-                    <td>{{ vehicule.photo }}</td>
+                    <td><img src="{{ asset('img/upload/' ~ vehicule.photo) }}" alt="" width="100"></td>
                     <td>{{ vehicule.prixJournalier }}</td>
-                    <td>{{ vehicule.dateEnregistrement|date('d/m/Y à H:i:s') }}</td>
+                    <td>{{ vehicule.dateEnregistrement|date('d/m/Y') }}</td>
                 </tr>
                     
                 {% endfor %}

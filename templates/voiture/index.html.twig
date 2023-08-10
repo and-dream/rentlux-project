@@ -6,7 +6,26 @@
 
 <div class="container">
     <h1>Rentlux : location de voitures haut de gamme</h1>
+    <div class="text-center mb-5">
+    <img class="img-fluid" src="{{ asset('img/images/bmw-6.png') }}" alt="bmw" >
+    </div>
 
-
-</div>
+    
+        {% for vehicule in voitures %}
+        <div class="container text-center px-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">{{ vehicule.titre }}</h3>
+                    <img class="img-fluid d-block mx-auto mt-3" src="{{ asset('img/upload/' ~ vehicule.photo) }}" alt="" width="250">
+                    <div class="card-body">
+                        <h5 class="card-title">Louez une voiture de luxe</h5>
+                </div>               
+                    <div class="card-body">
+                        <p class="card-text">{{ vehicule.description }}</p>
+                    </div>               
+                    <div class="card-body">
+                        <a href="{{ path('voiture_single', {id: vehicule.id} ) }}" class="card-link">Découvrir</a>
+                    </div>
+                </div>
+        </div>
+        {% endfor %}
 {% endblock %}

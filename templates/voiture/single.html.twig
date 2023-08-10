@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <div class="card bg-light mb-3">
+        <div class="card-header text-center">{{ vehicule.titre }}</div>      
+            <div>
+                <img class="img-fluid d-block mx-auto mt-3" src="{{ asset('img/upload/' ~ vehicule.photo) }}" alt="" width="300">
+            </div>
+        <div class="card-body">
+                <p class="card-text text-center">{{ vehicule.description }}</p>
+                <a href="#" class="card-link text-center">Louer ce véhicule</a>
+    </div>
+</div>
+
+{% endblock %}

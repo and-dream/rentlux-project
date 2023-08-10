@@ -45,13 +45,13 @@ class AdminController extends AbstractController
             $imageFile = $form->get('photo')->getData();
 
             if($imageFile){
-                $originalFilename = pathinfo($imageFile->getClientOriginalNale(),PATHINFO_FILENAME); 
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(),PATHINFO_FILENAME); 
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
                     try{
                         $imageFile->move(
-                            $this->getParameter('img_upload'), //l'endroit où on va déplacer le fichier
+                            $this->getParameter('img_upload'), 
                             $newFilename
                         );
                     }catch (FileException $e){
@@ -60,6 +60,7 @@ class AdminController extends AbstractController
                     $voiture->setPhoto($newFilename);
             } //!fin traitement image
             
+            // $voiture->setCreatedAt(new \Datetime);
             $manager->persist($voiture); 
             $manager->flush();
 
