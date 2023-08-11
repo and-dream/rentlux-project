@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Gestion des employés{% endblock %}
+{% block title %}Gestion des membres{% endblock %}
 
 {% block body %}
 <div class="m-2">
@@ -13,7 +13,6 @@
                 <th>prenom</th>
                 <th>email</th>
                 <th>civilite</th>
-                <th>statut</th>
                 <th>date enregistrement</th>
                 <th>actions</th>
 
@@ -32,8 +31,8 @@
                     <td>{{ membre.dateEnregistrement|date("d/m/Y") }}</td>
                     <td>
                         
-                        <a href="{{ path('membre_modifier', {id: memnre.id} ) }}" class="text-warning"><i class="bi bi-pencil"></i></a>
-                        <a href="{{ path('membre_supprimer', {id: memnre.id} ) }}" class="text-danger"><i class="bi bi-trash3 text-danger"></i></a>
+                        <a href="{{ path('membre_modifier', {id: membre.id} ) }}" class="text-warning"><i class="bi bi-pencil"></i></a>
+                        <a href="{{ path('membre_supprimer', {id: membre.id} ) }}" class="text-danger"><i class="bi bi-trash3 text-danger"></i></a>
                     </td>
                 </tr>
                 
@@ -44,7 +43,7 @@
 
 </div>
 
-<div class="container">
+<div class="container mt-5">
     {{ form_start(formMembres, {
         attr: {novalidate: "novalidate"}
     }) }}
@@ -59,21 +58,18 @@
 
     {{ form_row(formMembres.email, {
         label: "Email",
-       attr: {
+        attr: {
         placeholder: 'email'
     },
 
     }) }}
 
-    {# {{ form_row(formMembres.password, {
+    {{ form_row(formMembres.plainPassword, {
         label: "Mot de passe",
         attr: {
         placeholder: 'mot de passe'
-    },
-        row_attr: {
-        class: 'form-floating'
-    }
-    }) }} #}
+        },
+    }) }}
 
     {{ form_row(formMembres.civilite, {
         label: "Civilité",
@@ -98,7 +94,5 @@
     }) }}
 
     {{ form_end(formMembres) }}
-
-
 </div>
 {% endblock %}

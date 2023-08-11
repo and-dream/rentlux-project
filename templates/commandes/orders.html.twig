@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block %}
+<div class="container">
+
+    {{ form_start(formOrders, {
+        attr: {novalidate: "novalidate"}
+    }) }}
+
+    {{ form_row(formOrders.date_heure_depart, {
+        label: "Début de location",
+    }) }}
+
+    {{ form_end(formGestion) }}
+
+
+</div>
+
+
+
+{% endblock %}

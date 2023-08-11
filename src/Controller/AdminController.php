@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -97,7 +98,7 @@ public function delete(EntityManagerInterface $manager, Vehicule $voitures)
 
 #[Route('/membre/modifier/{id}', name:"membre_modifier")]
 #[Route('/membre/ajouter', name: "membre_ajouter")]
-public function formMembres(Request $globals, EntityManagerInterface $manager, Membre $membre =null, MembreRepository $repo) :Response
+public function formMembres(Request $globals, EntityManagerInterface $manager, Membre $membre =null, MembreRepository $repo, UserPasswordHasherInterface $userPasswordHasher) :Response
 {    
     if($membre == null)
     {
@@ -105,7 +106,7 @@ public function formMembres(Request $globals, EntityManagerInterface $manager, M
     }
    
     $editMode = $membre->getId() !== null;
-    // $membre = $repo->findAll();
+    $membres = $repo->findAll();
     $form = $this->createForm(RegistrationFormType::class, $membre);
 
     $form->handleRequest($globals);
@@ -113,6 +114,12 @@ public function formMembres(Request $globals, EntityManagerInterface $manager, M
     if($form->isSubmitted() && $form ->isValid())
     {
         $membre->setDateEnregistrement(new \Datetime);
+        $membre->setPassword(
+            $userPasswordHasher->hashPassword(
+                $membre,
+                $form->get('plainPassword')->getData()
+            )
+        );
         $manager->persist($membre);
         $manager->flush();
 
@@ -124,12 +131,12 @@ public function formMembres(Request $globals, EntityManagerInterface $manager, M
         }
         $this->addFlash('success', "Vous avez bien ajouté un nouveau membre");
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('membre_ajouter');
         
     }
 
     return $this->render('admin/membres/gestion.html.twig', [
-        'membres' => $membre,
+        'membres' => $membres,
         'formMembres' => $form,
         'editMode' => $editMode,
     ]);
