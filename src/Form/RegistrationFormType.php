@@ -68,7 +68,7 @@ class RegistrationFormType extends AbstractType
                     ))
                 ],
             ])
-            ->add('valider', SubmitType::class)
+            
         ;
     }
 
