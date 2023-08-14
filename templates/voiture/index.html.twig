@@ -24,7 +24,20 @@
                         <p class="card-text">{{ vehicule.description }}</p>
                     </div>               
                     <div class="card-body">
-                        <a href="{{ path('voiture_single', {id: vehicule.id} ) }}" class="card-link">Découvrir</a>
+                    {% if app.user %}
+                    
+                    <a href="{{ path('voiture_single', {id: vehicule.id} ) }}" class="card-link">Découvrir</a>
+                    {% else %}
+                    <h6 class="card-subtitle text-muted">Vous devez être connecté pour pouvoir réserver</h6>
+                    <div col=6 >
+                    <a href="{{ path('app_login') }}" class="card-link">Me connecter</a>
+                    <a href="{{ path('app_register') }}" class="card-link">M'inscrire</a>
+                    </div>
+                    
+                    
+                    {% endif %}
+                    
+                        
                     </div>
                 </div>
 </div>
